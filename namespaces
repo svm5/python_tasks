@@ -1,0 +1,25 @@
+d = {}
+d['global'] = [[]]
+q = int(input())
+for _ in range(q):
+    action, *args = input().split()
+    if action == 'create':
+        namespace, parent = args
+        d[namespace] = [[], parent]
+    elif action == 'add':
+        namespace, val = args
+        d[namespace][0].append(val)
+    else:
+        namespace, val = args
+        flag = True
+        while namespace != 'global':
+            if val in d[namespace][0]:
+                print(namespace)
+                flag = False
+                break
+            namespace = d[namespace][1]
+        if flag:
+            if namespace == 'global' and val in d['global'][0]:
+                print('global')
+            else:
+                print('None')
